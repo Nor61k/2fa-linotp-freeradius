@@ -68,11 +68,11 @@ docker compose up --build -d
 ```yaml
 environment:
   DB_USER: linotp
-  DB_PASS: Bigobe55!
+  DB_PASS: adminpass
   DB_NAME: linotpdb
   DB_HOST: postgres
   ADMIN_USER: admin
-  ADMIN_PASS: Bigobe55!
+  ADMIN_PASS: adminpass
 ```
 
 ### 🛠️ Что настраивается автоматически:
