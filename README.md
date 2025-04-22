@@ -46,6 +46,8 @@ chmod +x install_linotp_radius.sh
 - IP LinOTP и клиента
 - имя администратора
 - shared secret
+- realm
+- resolver
 
 ---
 
