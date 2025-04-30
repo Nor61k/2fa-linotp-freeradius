@@ -195,7 +195,7 @@ sudo rm -f /etc/freeradius/3.0/mods-enabled/eap
 echo "[+] Создание конфигурации LinOTP RADIUS..."
 sudo mkdir -p /etc/linotp2
 cat <<EOF | sudo tee /etc/linotp2/rlm_perl.ini > /dev/null
-URL=http://${LINOTP_IP}/validate/simplecheck
+URL=https://${LINOTP_IP}/validate/simplecheck
 REALM=${REALM}
 RESCONF=${RESCONF}
 Debug=True
@@ -232,6 +232,4 @@ if [[ -s "$ERROR_LOG" ]]; then
   echo "❗ Внимание: Обнаружены возможные ошибки в процессе установки."
   echo "Просмотрите файл ошибок: $ERROR_LOG"
 else
-  echo "🟢 Установка прошла без критических ошибок."
-  rm -f "$ERROR_LOG"
-fi
+  echo "🟢
