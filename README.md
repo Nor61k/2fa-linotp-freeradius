@@ -57,6 +57,7 @@ chmod +x install_linotp_radius.sh
 - `docker-compose.yml`
 - `linotp/` — Dockerfile, скрипт запуска и настройки
 - `freeradius/` — Dockerfile, конфиги, Perl-модуль `radius_linotp.pm`
+- '.env' - Переменные
 
 ### 🚀 Запуск:
 
