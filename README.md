@@ -7,7 +7,7 @@
 - **LinOTP** — централизованный сервер токенов и аутентификации
 - **FreeRADIUS** — интерфейс RADIUS для взаимодействия с VPN, firewalls и др.
 - **PostgreSQL** — хранилище конфигурации и данных LinOTP
-- Поддержка клиента, например: **Check Point NGFW**, **OpenVPN**, **FortiGate** и др.
+- Поддержка клиента по протоколу radius, например: **Check Point NGFW**, **OpenVPN**, **FortiGate** и др.
 
 Поддерживается интеграция с LDAP, токены HOTP/TOTP, логирование, REST API.
 
