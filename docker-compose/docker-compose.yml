@@ -1,0 +1,68 @@
+
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:13
+    container_name: linotp_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: linotp
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: linotpdb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./linotp/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - linotp_net
+
+  linotp:
+    image: linotp-image
+    build: ./linotp
+    container_name: linotp_app
+    depends_on:
+      - postgres
+    ports:
+      - "443:443"
+    environment:
+      DB_USER: linotp
+      DB_PASS: ${DB_PASS}
+      DB_NAME: linotpdb
+      DB_HOST: postgres
+      ADMIN_USER: admin
+      ADMIN_PASS: ${ADMIN_PASS}
+    networks:
+      - linotp_net
+      - ext_net
+    volumes:
+      - linotp_logs:/var/log/linotp
+
+  freeradius:
+    image: freeradius-image
+    build: ./freeradius
+    container_name: linotp_radius
+    depends_on:
+      - linotp
+    ports:
+      - "1812:1812/udp"
+      - "1813:1813/udp"
+    environment:
+      RADIUS_CLIENT_NAME: ${RADIUS_CLIENT_NAME}
+      RADIUS_CLIENT_IP: ${RADIUS_CLIENT_IP}
+      RADIUS_SECRET: ${RADIUS_SECRET}
+      LINOTP_URL: ${LINOTP_URL}
+    networks:
+      - linotp_net
+      - ext_net
+    volumes:
+      - radius_logs:/var/log/freeradius
+
+volumes:
+  pgdata:
+  linotp_logs:
+  radius_logs:
+
+networks:
+  linotp_net:
+  ext_net:
+    driver: bridge
