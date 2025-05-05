@@ -60,7 +60,7 @@ chmod +x install_linotp_radius.sh
 - '.env' - Переменные
 
 ### 🚀 Запуск:
-
+Перейти в папку docker-compose , там где находится файл docker-compose.yml
 ```bash
 docker compose up --build -d
 ```
