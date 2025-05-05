@@ -65,30 +65,41 @@ docker compose up --build -d
 ```
 
 ### ⚠️ Перед запуском проверь:
-Файл `docker-compose.yml`, секция `linotp.environment`:
+Файл `.env`:
 
 ```yaml
-environment:
-  DB_USER: linotp
-  DB_PASS: adminpass
-  DB_NAME: linotpdb
-  DB_HOST: postgres
-  ADMIN_USER: admin
-  ADMIN_PASS: adminpass
+# Database
+DB_USER=linotp
+DB_PASS=yourpassword
+DB_NAME=linotpdb
+DB_HOST=postgres
+
+# LinOTP Admin
+ADMIN_USER=admin
+ADMIN_PASS=adminpass
+
+# RADIUS
+RADIUS_CLIENT_NAME=myclient
+RADIUS_CLIENT_IP=192.168.1.1
+RADIUS_SECRET=mysecret
+LINOTP_URL=https://linotp_app/validate/simplecheck
+
+# RADIUS-LinOTP Plugin
+REALM=realm1
+RESCONF=resolver1
+
 ```
 
 ### 🛠️ Что настраивается автоматически:
 - RADIUS клиент (`clients.conf`)
-- связка FreeRADIUS ↔ LinOTP через Perl
-- PostgreSQL и база данных
-- Создаётся администратор LinOTP
+- связка FreeRADIUS ↔ LinOTP через Perl  
+- PostgreSQL и база данных (указывайте логин , пароль , имя БД)
+- Создаётся администратор LinOTP (указывайте логин и пароль)
 - Apache на порту 443
 
-### 🧾 Подробнее в:
-- [`CONFIG_GUIDE.md`](CONFIG_GUIDE.md)
-- [`linotp-architecture.drawio`](linotp-architecture.drawio) — схема потоков
-
----
+На какие файлы стоит обращать внимание при дебаге:
+- /etc/linotp2/rlm_perl.ini - конфиг для скрипта freeradius , тут указывается адрес linotp, имя realm и resolver  ,с которым freeradius обратится к linotp(не забываем синхронизировать эти настройки)
+- /etc/freeradius/3.0/clients.conf - конфиг клиентов, на запросы с каких адресов отвечать и secret для radius
 
 ## 📄 Лицензия
 
